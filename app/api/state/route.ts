@@ -13,8 +13,10 @@ export async function GET(request?:Request) {
     const db = database();
     const limit=await consumeLimit(db,user.userId,"read");
     if (!limit.allowed) return respond({error:"Has realizado muchas consultas. Espera un momento e inténtalo de nuevo."},429,{"Retry-After":String(limit.retryAfter)});
-    const profile = await db.prepare("SELECT user_id,public_id,name,city,referral_code,sponsor_id,wants_founder,founder,created_at FROM profiles WHERE user_id = ?").bind(user.userId).first<Profile>();
-    const totals = await db.prepare("SELECT COUNT(*) AS registered, COALESCE(SUM(founder),0) AS founders FROM profiles").first();
+    const [profile, totals] = await Promise.all([
+      db.prepare("SELECT user_id,public_id,name,city,referral_code,sponsor_id,wants_founder,founder,created_at FROM profiles WHERE user_id = ?").bind(user.userId).first<Profile>(),
+      db.prepare("SELECT COUNT(*) AS registered, COALESCE(SUM(founder),0) AS founders FROM profiles").first(),
+    ]);
     if (!profile) {
       const legacy=user.authMethod === "email" ? await getChatGPTUser() : null;
       const previous=legacy ? await db.prepare("SELECT user_id FROM profiles WHERE user_id = ?").bind(legacy.userId).first() : null;
@@ -29,10 +31,11 @@ export async function GET(request?:Request) {
         (SELECT COUNT(*) FROM progress q WHERE q.user_id = p.user_id) AS completed
         FROM tree JOIN profiles p ON p.user_id = tree.user_id ORDER BY tree.depth, p.created_at DESC`).bind(user.userId),
       db.prepare("SELECT name,referral_code FROM profiles WHERE user_id = ?").bind(profile.sponsor_id ?? ""),
+      ...(user.isAdmin ? [db.prepare(`SELECT public_id,name,city,wants_founder,founder,created_at,
+        (SELECT COUNT(*) FROM progress q WHERE q.user_id = p.user_id) AS completed
+        FROM profiles p WHERE wants_founder = 1 OR founder = 1 ORDER BY founder DESC, created_at`)] : []),
     ]);
-    const applicants = user.isAdmin ? (await db.prepare(`SELECT public_id,name,city,wants_founder,founder,created_at,
-      (SELECT COUNT(*) FROM progress q WHERE q.user_id = p.user_id) AS completed
-      FROM profiles p WHERE wants_founder = 1 OR founder = 1 ORDER BY founder DESC, created_at`).all()).results : [];
+    const applicants = results[3]?.results ?? [];
     // Only fields required by the interface may leave the server. New database
     // columns must never become API fields implicitly.
     return respond({profile:{

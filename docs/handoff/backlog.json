@@ -1,0 +1,507 @@
+[
+  {
+    "id": "F01",
+    "prioridad": "P0",
+    "fase": "A",
+    "titulo": "Repositorio y entornos",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [],
+    "criterio_aceptacion": "Código actual reproducible, staging separado, secretos fuera del repositorio",
+    "pruebas": [
+      "T01"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F02",
+    "prioridad": "P0",
+    "fase": "A",
+    "titulo": "Ratificar decisiones D01 a D10",
+    "responsable_propuesto": "Carlos y responsables",
+    "dependencias": [],
+    "criterio_aceptacion": "Reglas con versión y ejemplos aceptados antes del módulo afectado",
+    "pruebas": [
+      "T02"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F03",
+    "prioridad": "P0",
+    "fase": "A",
+    "titulo": "Modelo Postgres y permisos",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F01"
+    ],
+    "criterio_aceptacion": "Migraciones versionadas, constraints, índices y pruebas de aislamiento",
+    "pruebas": [
+      "T03",
+      "T04"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F04",
+    "prioridad": "P0",
+    "fase": "B",
+    "titulo": "Inventario y ensayo de migración",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F03"
+    ],
+    "criterio_aceptacion": "Conteos, códigos, aristas, avances e identidades conciliados",
+    "pruebas": [
+      "T05",
+      "T06",
+      "T07"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F05",
+    "prioridad": "P0",
+    "fase": "B",
+    "titulo": "Acceso por correo y transición",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F01"
+    ],
+    "criterio_aceptacion": "Alta, invitación, callback, recuperación, vinculación y cierre reales verificados",
+    "pruebas": [
+      "T08",
+      "T09",
+      "T10"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F06",
+    "prioridad": "P0",
+    "fase": "B",
+    "titulo": "Paginación de red y administración",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F03"
+    ],
+    "criterio_aceptacion": "Consultas acotadas y proyecciones mínimas por rol",
+    "pruebas": [
+      "T11",
+      "T12"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F07",
+    "prioridad": "P0",
+    "fase": "A",
+    "titulo": "Corregir textos de ventana mensual",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [],
+    "criterio_aceptacion": "Sitio y Academia usan cinco días con fechas por confirmar",
+    "pruebas": [
+      "T02"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F08",
+    "prioridad": "P0",
+    "fase": "C",
+    "titulo": "Catálogo de cursos y publicación",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F03"
+    ],
+    "criterio_aceptacion": "Cursos, módulos, versiones y flujo editorial administrables",
+    "pruebas": [
+      "T13"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F09",
+    "prioridad": "P0",
+    "fase": "C",
+    "titulo": "Proveedor y reproducción privada",
+    "responsable_propuesto": "Claudio y Carlos",
+    "dependencias": [
+      "F08"
+    ],
+    "criterio_aceptacion": "Video procesado, permiso firmado y claves privadas en servidor",
+    "pruebas": [
+      "T14",
+      "T15"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F10",
+    "prioridad": "P0",
+    "fase": "C",
+    "titulo": "Progreso y continuidad de video",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F09"
+    ],
+    "criterio_aceptacion": "Reanudación, intervalos sin duplicación y autoría validada",
+    "pruebas": [
+      "T16",
+      "T17"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F11",
+    "prioridad": "P0",
+    "fase": "C",
+    "titulo": "Materiales y comentarios moderados",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F08"
+    ],
+    "criterio_aceptacion": "Descargas autorizadas, sanitización, reportes y moderación",
+    "pruebas": [
+      "T18"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F12",
+    "prioridad": "P0",
+    "fase": "C",
+    "titulo": "Contenido piloto académico",
+    "responsable_propuesto": "Carlos y responsable académico",
+    "dependencias": [
+      "F08"
+    ],
+    "criterio_aceptacion": "Curso con grabaciones, subtítulos, permisos y revisión",
+    "pruebas": [
+      "T19"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F13",
+    "prioridad": "P1",
+    "fase": "C",
+    "titulo": "Comunidad y calendario",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F11"
+    ],
+    "criterio_aceptacion": "Temas, respuestas, avisos, sesiones y grabaciones con permisos",
+    "pruebas": [
+      "T18",
+      "T19"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F14",
+    "prioridad": "P0",
+    "fase": "D",
+    "titulo": "Catálogo FH1 y pedidos",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F02",
+      "F03"
+    ],
+    "criterio_aceptacion": "Precio en servidor, dirección, impuestos y envío representados",
+    "pruebas": [
+      "T20"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F15",
+    "prioridad": "P0",
+    "fase": "D",
+    "titulo": "Pasarela y webhooks",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F14"
+    ],
+    "criterio_aceptacion": "Firma, idempotencia, importe y moneda; eventos fuera de orden soportados",
+    "pruebas": [
+      "T21",
+      "T22"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F16",
+    "prioridad": "P0",
+    "fase": "D",
+    "titulo": "Inventario lotes y envíos",
+    "responsable_propuesto": "Claudio y operaciones",
+    "dependencias": [
+      "F14"
+    ],
+    "criterio_aceptacion": "Sin sobreventa concurrente; trazabilidad por lote y guía",
+    "pruebas": [
+      "T23"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F17",
+    "prioridad": "P0",
+    "fase": "D",
+    "titulo": "Devoluciones y conciliación",
+    "responsable_propuesto": "Claudio y finanzas",
+    "dependencias": [
+      "F02",
+      "F15"
+    ],
+    "criterio_aceptacion": "Ajustes parciales y contracargos con reversión trazable",
+    "pruebas": [
+      "T24"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F18",
+    "prioridad": "P0",
+    "fase": "E",
+    "titulo": "Periodos y elegibilidad",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F02",
+      "F15"
+    ],
+    "criterio_aceptacion": "Cierre único, compra personal y ausencias consecutivas",
+    "pruebas": [
+      "T25",
+      "T26",
+      "T27"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F19",
+    "prioridad": "P0",
+    "fase": "E",
+    "titulo": "Compresión temporal",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F18"
+    ],
+    "criterio_aceptacion": "Casos de ascendentes activos y niveles ausentes ratificados",
+    "pruebas": [
+      "T28",
+      "T29"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F20",
+    "prioridad": "P0",
+    "fase": "E",
+    "titulo": "Baja comercial y reingreso",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F18"
+    ],
+    "criterio_aceptacion": "Ciclo nuevo sin recuperar organización ni borrar historia",
+    "pruebas": [
+      "T30",
+      "T31"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F21",
+    "prioridad": "P0",
+    "fase": "E",
+    "titulo": "Libro de comisiones",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F17",
+      "F19"
+    ],
+    "criterio_aceptacion": "Asientos únicos, versiones y reversión; cálculo en centavos",
+    "pruebas": [
+      "T32",
+      "T33"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F22",
+    "prioridad": "P0",
+    "fase": "E",
+    "titulo": "Liquidaciones con doble aprobación",
+    "responsable_propuesto": "Claudio y finanzas",
+    "dependencias": [
+      "F21"
+    ],
+    "criterio_aceptacion": "Total y neto conciliados, acceso bancario restringido",
+    "pruebas": [
+      "T34",
+      "T35"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F23",
+    "prioridad": "P0",
+    "fase": "A",
+    "titulo": "Roles auditoría y MFA",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F03"
+    ],
+    "criterio_aceptacion": "Fundador separado de staff; cambios sensibles auditados",
+    "pruebas": [
+      "T03",
+      "T36"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F24",
+    "prioridad": "P0",
+    "fase": "F",
+    "titulo": "Respaldos y restauración",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F04",
+      "F09"
+    ],
+    "criterio_aceptacion": "Restauración de base y recursos ensayada y tiempos medidos",
+    "pruebas": [
+      "T37"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F25",
+    "prioridad": "P0",
+    "fase": "F",
+    "titulo": "Observabilidad y soporte",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F15",
+      "F21"
+    ],
+    "criterio_aceptacion": "Alertas accionables, request_id y logs sin secretos",
+    "pruebas": [
+      "T38"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F26",
+    "prioridad": "P0",
+    "fase": "F",
+    "titulo": "Pruebas de capacidad",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F06",
+      "F10",
+      "F21"
+    ],
+    "criterio_aceptacion": "500 miembros sintéticos y concurrencia acordada sin fallos de integridad",
+    "pruebas": [
+      "T39"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F27",
+    "prioridad": "P0",
+    "fase": "F",
+    "titulo": "Corte y conciliación final",
+    "responsable_propuesto": "Carlos y Claudio",
+    "dependencias": [
+      "F04",
+      "F05",
+      "F24"
+    ],
+    "criterio_aceptacion": "Un solo escritor, reconciliación completa y reversión preparada",
+    "pruebas": [
+      "T40"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F28",
+    "prioridad": "P0",
+    "fase": "F",
+    "titulo": "Piloto comercial y acta de entrega",
+    "responsable_propuesto": "Carlos y Claudio",
+    "dependencias": [
+      "F12",
+      "F17",
+      "F22",
+      "F26",
+      "F27"
+    ],
+    "criterio_aceptacion": "Flujos de punta a punta aceptados, manual y soporte entregados",
+    "pruebas": [
+      "T41"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F29",
+    "prioridad": "P2",
+    "fase": "Posterior",
+    "titulo": "Gamificación educativa",
+    "responsable_propuesto": "Claudio",
+    "dependencias": [
+      "F13"
+    ],
+    "criterio_aceptacion": "Reconocimientos separados de comisiones y compras",
+    "pruebas": [
+      "T42"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  },
+  {
+    "id": "F30",
+    "prioridad": "P2",
+    "fase": "Posterior",
+    "titulo": "Aplicaciones nativas y expansión",
+    "responsable_propuesto": "Carlos y Claudio",
+    "dependencias": [
+      "F28"
+    ],
+    "criterio_aceptacion": "Caso de uso, país, normativa y presupuesto aprobados",
+    "pruebas": [
+      "T42"
+    ],
+    "estado": "Por desarrollar o verificar",
+    "estimacion": "Claudio debe estimar"
+  }
+]

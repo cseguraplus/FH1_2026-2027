@@ -1,0 +1,79 @@
+{
+  "reference_date": "2026-10-07",
+  "source_commit": "da8caaa6785c83fc78deb6ef0cbed20d1e567783",
+  "source_archive": "FH_Codigo_Sitio_v8.zip",
+  "source_archive_sha256": "6b871a9aa26c9f4f5e1273d122bd0601ae6f43a7d058f08b0a86b8fb8f2ad4f0",
+  "source_archive_bytes": 3404432,
+  "files": [
+    {
+      "path": "ACADEMIA_VIDEO.md",
+      "bytes": 5082,
+      "sha256": "a37f7ad80916c2b576ef8c59c8b97ecd446392071ae389905ffdcff69055359b"
+    },
+    {
+      "path": "API_ACTUAL_Y_PROPUESTA.md",
+      "bytes": 4283,
+      "sha256": "4f613d036abf9cdf6759d4b24eed164108608d29ba2b10a2a199b9866894c7a1"
+    },
+    {
+      "path": "DATOS_Y_MIGRACION.md",
+      "bytes": 5158,
+      "sha256": "02cf7f0040635d7130d47d095d72514c963e8509cc931f0265a33f11026ce4ec"
+    },
+    {
+      "path": "ESPECIFICACION_MAESTRA.md",
+      "bytes": 25119,
+      "sha256": "76c689a6ea94f16031bb19177de259f26dfa833c9348c374298f0f4b2b2906c5"
+    },
+    {
+      "path": "FUENTES_Y_ACCESOS.md",
+      "bytes": 6265,
+      "sha256": "747c111d2ebe72037486eb11f196164af9e7009c6d647bca3859e57aa5d3c9fa"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1910,
+      "sha256": "40cd25e82d3008e2bb7e8522385e8c7810be2161f0ae1765626b8ffeaf1a1c21"
+    },
+    {
+      "path": "backlog.json",
+      "bytes": 12673,
+      "sha256": "bf12ae8f7d7e994b92898ff20c0de41f38ed6252072e5420fdaaced6db873f90"
+    },
+    {
+      "path": "diccionario-datos.json",
+      "bytes": 14290,
+      "sha256": "eb33a1e436f36e8ef0a95b5e365514e88cb847f69928662034d1c6ba7353abe6"
+    },
+    {
+      "path": "openapi-propuesta.json",
+      "bytes": 29788,
+      "sha256": "ec5ebc4650eb84784ed4292d5cf7aafd066027b79f9e2f7d8dacecf545e36087"
+    },
+    {
+      "path": "pruebas-aceptacion.json",
+      "bytes": 12943,
+      "sha256": "d9c338f1d05499bd78121062194f3290b2bdae9ad92264f48f85654011f0a1b5"
+    },
+    {
+      "path": "validacion/README.md",
+      "bytes": 1280,
+      "sha256": "fe21ab149b3f2ddc053b9c1f6a8fb6546c55f5a457556e5f1230b4f3ae1f77b3"
+    },
+    {
+      "path": "validacion/fixture.json",
+      "bytes": 1473,
+      "sha256": "692ab1ec3d2fce2e81e50366b06745357d888f6a923d12fb524bbac5e7b7ce6e"
+    },
+    {
+      "path": "validacion/test_validator.py",
+      "bytes": 3217,
+      "sha256": "f49d53500c6d6868bd0956c06dcfd0c1717a8665eba2d7e3b124fd151c0793f9"
+    },
+    {
+      "path": "validacion/validate_export.py",
+      "bytes": 8569,
+      "sha256": "785265c5aceb84daeb368c28e77b1f7443fabb7c1b773ca1cf2e4546896a4d75"
+    }
+  ]
+}

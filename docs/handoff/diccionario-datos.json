@@ -1,0 +1,504 @@
+{
+  "status": "Diseño propuesto no desplegado",
+  "currency": "MXN",
+  "money": "Enteros en centavos",
+  "times": "timestamptz UTC, visualización según zona aprobada",
+  "entities": [
+    {
+      "table": "members",
+      "pk": "id uuid PK",
+      "fields": [
+        "display_name text",
+        "city text",
+        "wants_founder bool",
+        "founder bool",
+        "created_at timestamptz"
+      ],
+      "constraints": "Conservar public_id D1; no contiene claves Auth ni banco"
+    },
+    {
+      "table": "identity_links",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "provider text",
+        "provider_subject text",
+        "legacy_user_id text",
+        "verified_at timestamptz"
+      ],
+      "constraints": "UNIQUE(provider,provider_subject); UNIQUE(member_id,provider); vinculación verificada"
+    },
+    {
+      "table": "staff_roles",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "role text",
+        "granted_by uuid",
+        "granted_at timestamptz",
+        "revoked_at timestamptz"
+      ],
+      "constraints": "Separado de founder; permisos explícitos y auditados"
+    },
+    {
+      "table": "commercial_cycles",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "referral_code text",
+        "status text",
+        "started_at timestamptz",
+        "ended_at timestamptz",
+        "exit_reason text"
+      ],
+      "constraints": "UNIQUE referral_code; como máximo un ciclo vigente por miembro; política de enlace anterior D04"
+    },
+    {
+      "table": "sponsorship_edges",
+      "pk": "id uuid PK",
+      "fields": [
+        "cycle_id uuid FK",
+        "sponsor_cycle_id uuid FK nullable",
+        "kind original|operational",
+        "valid_from timestamptz",
+        "valid_to timestamptz",
+        "reason text"
+      ],
+      "constraints": "Sin ciclos; máximo una arista activa por kind y ciclo; no borrar historial"
+    },
+    {
+      "table": "periods",
+      "pk": "id uuid PK",
+      "fields": [
+        "opens_at timestamptz",
+        "closes_at timestamptz",
+        "timezone text",
+        "rule_version_id uuid",
+        "state text"
+      ],
+      "constraints": "Apertura menor que cierre; no solapamiento de ventanas dentro del programa"
+    },
+    {
+      "table": "rule_versions",
+      "pk": "id uuid PK",
+      "fields": [
+        "version text",
+        "rules jsonb",
+        "approved_by uuid",
+        "approved_at timestamptz",
+        "effective_at timestamptz"
+      ],
+      "constraints": "Inmutable tras aplicar; validar decisiones pendientes antes de activar"
+    },
+    {
+      "table": "eligibility_results",
+      "pk": "id uuid PK",
+      "fields": [
+        "cycle_id uuid FK",
+        "period_id uuid FK",
+        "qualified bool",
+        "purchase_id uuid nullable",
+        "absence_streak int",
+        "rule_version_id uuid",
+        "reason text"
+      ],
+      "constraints": "UNIQUE(cycle_id,period_id); cierre idempotente; contador calculado una vez"
+    },
+    {
+      "table": "products",
+      "pk": "id uuid PK",
+      "fields": [
+        "sku text",
+        "name text",
+        "active bool"
+      ],
+      "constraints": "UNIQUE sku; precio separado por versión"
+    },
+    {
+      "table": "product_versions",
+      "pk": "id uuid PK",
+      "fields": [
+        "product_id uuid FK",
+        "price_cents bigint",
+        "currency char3",
+        "valid_from timestamptz",
+        "tax_config jsonb",
+        "shipping_policy text"
+      ],
+      "constraints": "Importes no negativos; solo versiones aprobadas vigentes"
+    },
+    {
+      "table": "orders",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "period_id uuid nullable",
+        "total_cents bigint",
+        "currency char3",
+        "status text",
+        "address_snapshot jsonb",
+        "price_version_id uuid",
+        "created_at timestamptz"
+      ],
+      "constraints": "Dirección restringida; total derivado en servidor; estado separado de pago y entrega"
+    },
+    {
+      "table": "order_items",
+      "pk": "id uuid PK",
+      "fields": [
+        "order_id uuid FK",
+        "product_version_id uuid FK",
+        "quantity int",
+        "unit_price_cents bigint",
+        "discounts_cents bigint"
+      ],
+      "constraints": "quantity > 0; precio snapshot; unidades trazables"
+    },
+    {
+      "table": "payments",
+      "pk": "id uuid PK",
+      "fields": [
+        "order_id uuid FK",
+        "provider text",
+        "provider_payment_id text",
+        "amount_cents bigint",
+        "currency char3",
+        "status text",
+        "paid_at timestamptz"
+      ],
+      "constraints": "UNIQUE(provider,provider_payment_id); verificar orden, moneda y monto"
+    },
+    {
+      "table": "refunds",
+      "pk": "id uuid PK",
+      "fields": [
+        "payment_id uuid FK",
+        "provider_refund_id text",
+        "amount_cents bigint",
+        "reason text",
+        "status text"
+      ],
+      "constraints": "ID externo único por proveedor; no exceder remanente reembolsable"
+    },
+    {
+      "table": "inventory_movements",
+      "pk": "id uuid PK",
+      "fields": [
+        "product_id uuid FK",
+        "lot_id uuid",
+        "order_item_id uuid nullable",
+        "quantity_delta int",
+        "kind text",
+        "occurred_at timestamptz"
+      ],
+      "constraints": "Stock por suma y reservas con política D09; no stock negativo por carreras"
+    },
+    {
+      "table": "shipments",
+      "pk": "id uuid PK",
+      "fields": [
+        "order_id uuid FK",
+        "carrier text",
+        "tracking text",
+        "actual_cost_cents bigint",
+        "status text",
+        "shipped_at timestamptz",
+        "delivered_at timestamptz"
+      ],
+      "constraints": "Datos de entrega visibles solo a roles necesarios"
+    },
+    {
+      "table": "commission_runs",
+      "pk": "id uuid PK",
+      "fields": [
+        "period_id uuid FK",
+        "rule_version_id uuid",
+        "input_hash text",
+        "state text",
+        "approved_by uuid",
+        "created_at timestamptz"
+      ],
+      "constraints": "Cierre único efectivo por periodo/versión; ajustes posteriores separados"
+    },
+    {
+      "table": "allocations",
+      "pk": "id uuid PK",
+      "fields": [
+        "run_id uuid FK",
+        "order_item_id uuid FK",
+        "unit_index int",
+        "buyer_cycle_id uuid",
+        "beneficiary_cycle_id uuid",
+        "effective_level int",
+        "amount_cents bigint",
+        "rate_bps int"
+      ],
+      "constraints": "UNIQUE(order_item_id,unit_index,periodo,beneficiario,nivel,version); nivel 1..3"
+    },
+    {
+      "table": "ledger_entries",
+      "pk": "id uuid PK",
+      "fields": [
+        "allocation_id uuid nullable",
+        "member_id uuid FK",
+        "entry_type text",
+        "signed_amount_cents bigint",
+        "currency char3",
+        "reverses_id uuid nullable",
+        "occurred_at timestamptz"
+      ],
+      "constraints": "Append only; reversión referenciada; no editar asiento liquidado"
+    },
+    {
+      "table": "payout_batches",
+      "pk": "id uuid PK",
+      "fields": [
+        "status text",
+        "gross_cents bigint",
+        "adjustments_cents bigint",
+        "withholding_cents bigint",
+        "net_cents bigint",
+        "prepared_by uuid",
+        "approved_by uuid"
+      ],
+      "constraints": "Doble aprobación; total conciliado con ítems; moneda única por lote"
+    },
+    {
+      "table": "payout_items",
+      "pk": "id uuid PK",
+      "fields": [
+        "batch_id uuid FK",
+        "member_id uuid FK",
+        "net_cents bigint",
+        "provider_transfer_id text",
+        "status text",
+        "idempotency_key text"
+      ],
+      "constraints": "Transferencia única; snapshot de cuenta bancaria validada en esquema privado"
+    },
+    {
+      "table": "courses",
+      "pk": "id uuid PK",
+      "fields": [
+        "slug text",
+        "title text",
+        "route text",
+        "current_version_id uuid nullable",
+        "audience text"
+      ],
+      "constraints": "UNIQUE slug; acceso no depende solo de URL"
+    },
+    {
+      "table": "course_versions",
+      "pk": "id uuid PK",
+      "fields": [
+        "course_id uuid FK",
+        "version int",
+        "status text",
+        "description text",
+        "reviewed_by uuid",
+        "published_at timestamptz"
+      ],
+      "constraints": "UNIQUE(course_id,version); publicar después de revisión"
+    },
+    {
+      "table": "modules",
+      "pk": "id uuid PK",
+      "fields": [
+        "course_version_id uuid FK",
+        "title text",
+        "position int"
+      ],
+      "constraints": "Orden estable por versión"
+    },
+    {
+      "table": "lessons",
+      "pk": "id uuid PK",
+      "fields": [
+        "module_id uuid FK",
+        "legacy_lesson_id text nullable",
+        "title text",
+        "position int",
+        "current_version_id uuid"
+      ],
+      "constraints": "Conservar IDs legado sin otorgar avance de contenido nuevo"
+    },
+    {
+      "table": "lesson_versions",
+      "pk": "id uuid PK",
+      "fields": [
+        "lesson_id uuid FK",
+        "version int",
+        "video_asset_id uuid nullable",
+        "transcript text",
+        "completion_rule jsonb",
+        "status text"
+      ],
+      "constraints": "UNIQUE(lesson_id,version); regla educativa versionada"
+    },
+    {
+      "table": "video_assets",
+      "pk": "id uuid PK",
+      "fields": [
+        "provider text",
+        "provider_asset_id text",
+        "duration_seconds int",
+        "state text",
+        "captions_manifest jsonb",
+        "original_storage_key text"
+      ],
+      "constraints": "UNIQUE(provider,provider_asset_id); sin URLs firmadas permanentes"
+    },
+    {
+      "table": "enrollments",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "course_id uuid FK",
+        "access_status text",
+        "granted_at timestamptz",
+        "revoked_at timestamptz"
+      ],
+      "constraints": "UNIQUE(member_id,course_id); condiciones D08"
+    },
+    {
+      "table": "progress_events",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "lesson_version_id uuid FK",
+        "event_id uuid",
+        "position_seconds numeric",
+        "interval_start numeric",
+        "interval_end numeric",
+        "received_at timestamptz"
+      ],
+      "constraints": "UNIQUE(member_id,event_id); límites válidos; no dar por confiable porcentaje del cliente"
+    },
+    {
+      "table": "lesson_completions",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "lesson_version_id uuid nullable",
+        "legacy_lesson_id text nullable",
+        "completed_at timestamptz",
+        "source text"
+      ],
+      "constraints": "Conservar progreso legado distinto de aprobación de video nuevo"
+    },
+    {
+      "table": "assessments",
+      "pk": "id uuid PK",
+      "fields": [
+        "lesson_version_id uuid FK",
+        "questions jsonb",
+        "passing_rule jsonb"
+      ],
+      "constraints": "Respuestas correctas restringidas al servidor; intentos en tabla asociada"
+    },
+    {
+      "table": "comments",
+      "pk": "id uuid PK",
+      "fields": [
+        "author_id uuid FK",
+        "lesson_version_id uuid nullable",
+        "post_id uuid nullable",
+        "parent_id uuid nullable",
+        "body text",
+        "status text",
+        "created_at timestamptz"
+      ],
+      "constraints": "Contexto exactamente uno; sanitizado; autoría y moderación verificadas"
+    },
+    {
+      "table": "posts",
+      "pk": "id uuid PK",
+      "fields": [
+        "author_id uuid FK",
+        "topic_id uuid",
+        "title text",
+        "body text",
+        "status text",
+        "created_at timestamptz"
+      ],
+      "constraints": "Visibilidad por audiencia; sin exponer PII por defecto"
+    },
+    {
+      "table": "events",
+      "pk": "id uuid PK",
+      "fields": [
+        "title text",
+        "starts_at timestamptz",
+        "timezone text",
+        "audience text",
+        "meeting_url_private text",
+        "recording_asset_id uuid nullable"
+      ],
+      "constraints": "Enlace de sesión visible solo a inscritos/autorizados"
+    },
+    {
+      "table": "consents",
+      "pk": "id uuid PK",
+      "fields": [
+        "member_id uuid FK",
+        "document_version text",
+        "accepted_at timestamptz",
+        "evidence_source text",
+        "withdrawn_at timestamptz nullable"
+      ],
+      "constraints": "No inventar aceptación de términos nuevos; texto/versionado conservado"
+    },
+    {
+      "table": "audit_events",
+      "pk": "id uuid PK",
+      "fields": [
+        "actor_id text",
+        "subject_id text",
+        "action text",
+        "occurred_at timestamptz",
+        "request_id uuid nullable",
+        "changes_redacted jsonb"
+      ],
+      "constraints": "Append only; retención por política; no guardar secretos ni documentos completos"
+    },
+    {
+      "table": "outbox_events",
+      "pk": "id uuid PK",
+      "fields": [
+        "event_type text",
+        "aggregate_id uuid",
+        "payload jsonb",
+        "status text",
+        "attempts int",
+        "next_attempt_at timestamptz"
+      ],
+      "constraints": "Insertar con cambio de negocio en misma transacción; consumidor idempotente"
+    },
+    {
+      "table": "idempotency_keys",
+      "pk": "id uuid PK",
+      "fields": [
+        "scope text",
+        "actor_id uuid nullable",
+        "key text",
+        "request_hash text",
+        "response_ref uuid",
+        "expires_at timestamptz"
+      ],
+      "constraints": "UNIQUE(scope,actor_id,key); colisión con diferente cuerpo da409"
+    },
+    {
+      "table": "migration_map",
+      "pk": "legacy_user_id text PK",
+      "fields": [
+        "member_id uuid FK",
+        "source_hash text",
+        "imported_at timestamptz",
+        "batch_id uuid"
+      ],
+      "constraints": "Conservar mapa estable; no mezclar dos orígenes sin namespace"
+    }
+  ],
+  "additional_design": "Separar esquema privado para datos bancarios y fiscales; completar tablas de intentos, recursos, moderación, reportes, temas y lotes durante diseño físico. Esta propuesta lógica no sustituye migraciones SQL ni políticas RLS."
+}

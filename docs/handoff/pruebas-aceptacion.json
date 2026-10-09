@@ -1,0 +1,338 @@
+[
+  {
+    "id": "T01",
+    "area": "Construcción",
+    "dado": "Copia del commit y staging limpio",
+    "cuando": "Instalar con lockfile y ejecutar las 40 regresiones",
+    "entonces": "Código reproducible; 40/40 en entorno de Claudio; no usar secretos productivos",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T02",
+    "area": "Reglas",
+    "dado": "Textos y reglas versionadas",
+    "cuando": "Buscar referencias a días 1 a 3 y planes anteriores",
+    "entonces": "Ningún flujo vigente contradice los cinco días; fechas aún sin inventar",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T03",
+    "area": "Roles",
+    "dado": "Alumno y administrador distintos",
+    "cuando": "Alumno intenta acciones staff y fundador intenta finanzas",
+    "entonces": "403 y ningún cambio; fundador no hereda rol administrativo",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T04",
+    "area": "Datos",
+    "dado": "Miembros en ramas diferentes",
+    "cuando": "Consultar y escribir con IDs de la otra rama",
+    "entonces": "Sin lectura de datos privados ni escrituras ajenas",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T05",
+    "area": "Migración",
+    "dado": "Export consistente con matriz de IDs",
+    "cuando": "Importar y comparar filas normalizadas",
+    "entonces": "Igualdad de códigos, patrocinio, consentimientos, fechas y avance",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T06",
+    "area": "Migración",
+    "dado": "Origen con ciclos, huérfanos y duplicados",
+    "cuando": "Ejecutar validación e importador de staging",
+    "entonces": "Bloqueo y cuarentena; sin completar artificialmente la organización",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T07",
+    "area": "Identidad",
+    "dado": "Perfil anterior y cuenta email vinculada",
+    "cuando": "Resolver auth_links antes del prefijo de identidad",
+    "entonces": "Una cuenta por perfil, sin duplicado ni pérdida de founder o progreso",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T08",
+    "area": "Auth",
+    "dado": "Invitación y email de ensayo",
+    "cuando": "Alta, confirmación y registro con ref",
+    "entonces": "Patrocinador correcto y ninguna obligación de cuenta ChatGPT",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T09",
+    "area": "Auth",
+    "dado": "Cuenta confirmada en dos dispositivos",
+    "cuando": "Recuperar contraseña y cerrar sesiones",
+    "entonces": "Política de cierre aplicada; error de enlace explicable; no exposición de tokens",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T10",
+    "area": "Auth",
+    "dado": "Acceso anterior y email perteneciente a otra persona",
+    "cuando": "Intentar vincular sin verificar ambas sesiones",
+    "entonces": "Vínculo rechazado, sin selección de víctima por el cliente",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T11",
+    "area": "Red",
+    "dado": "500 miembros y cadena profunda",
+    "cuando": "Paginar la red y cambiar cursor o límite",
+    "entonces": "Límites efectivos, sin duplicados ni datos de ramas prohibidas",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T12",
+    "area": "Fundadores",
+    "dado": "9 fundadores y dos solicitudes simultáneas",
+    "cuando": "Aprobar ambas",
+    "entonces": "Nunca más de 10; auditoría de la única aprobación efectiva",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T13",
+    "area": "Academia",
+    "dado": "Curso en borrador con video procesando",
+    "cuando": "Intentar verlo como alumno y publicarlo",
+    "entonces": "No visible hasta aprobación y video listo; versiones antiguas conservadas",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T14",
+    "area": "Video",
+    "dado": "Alumno sin matrícula o acceso revocado",
+    "cuando": "Pedir reproducción y reutilizar enlace vencido",
+    "entonces": "No token nuevo; token vencido falla; documentar TTL de tokens ya emitidos",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T15",
+    "area": "Video",
+    "dado": "Eventos duplicados de transcodificación",
+    "cuando": "Procesar webhook válido, repetido e inválido",
+    "entonces": "Firma inválida rechazada; no duplicar activos ni publicar por error",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T16",
+    "area": "Progreso",
+    "dado": "Video de prueba",
+    "cuando": "Ver intervalos repetidos, saltar al final y reenviar eventos",
+    "entonces": "Sin porcentaje inflado; no se confunde final de reproducción con aprobación",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T17",
+    "area": "Progreso",
+    "dado": "Dos sesiones del mismo alumno",
+    "cuando": "Enviar eventos fuera de orden y reanudar",
+    "entonces": "Progreso confirmado no retrocede y posición respeta política de reanudación",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T18",
+    "area": "Comunidad",
+    "dado": "Comentario con script y reporte",
+    "cuando": "Publicar, moderar y consultar como alumno",
+    "entonces": "Contenido sanitizado, historial staff protegido y política de moderación aplicada",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T19",
+    "area": "Experiencia",
+    "dado": "Curso piloto autorizado",
+    "cuando": "Usar teclado, móvil, red lenta y subtítulos",
+    "entonces": "Navegación utilizable, transcripción disponible y material revisado",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T20",
+    "area": "Orden",
+    "dado": "FH1 vigente a 250000 centavos",
+    "cuando": "Alterar precio, moneda y envío en cliente",
+    "entonces": "Servidor usa catálogo; total y términos correctos; sin cobro adicional inventado",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T21",
+    "area": "Webhook",
+    "dado": "Orden de ensayo pagada",
+    "cuando": "Repetir evento 10 veces y variar orden de llegada",
+    "entonces": "Un solo efecto económico; estado no retrocede incorrectamente",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T22",
+    "area": "Webhook",
+    "dado": "Firma falsa e importe equivocado",
+    "cuando": "Enviar notificación de éxito",
+    "entonces": "No acreditar pago; incidente visible para conciliación",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T23",
+    "area": "Inventario",
+    "dado": "Una unidad disponible y dos compras concurrentes",
+    "cuando": "Reservar y confirmar según política aprobada",
+    "entonces": "No sobreventa ni reserva eterna; liberar según regla ratificada",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T24",
+    "area": "Devolución",
+    "dado": "Pedido con comisión calculada",
+    "cuando": "Aplicar devolución parcial y contracargo repetido",
+    "entonces": "Reversión única y trazable conforme D05; no borrar asiento original",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T25",
+    "area": "Periodo",
+    "dado": "Límites aprobados de cinco días",
+    "cuando": "Pago antes, en apertura, antes de cierre y en cierre",
+    "entonces": "Asignación correcta usando semántica ratificada y reloj servidor",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T26",
+    "area": "Ausencias",
+    "dado": "Historia inactivo, activo, inactivo",
+    "cuando": "Cerrar los tres periodos",
+    "entonces": "No baja por dos ausencias no consecutivas",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T27",
+    "area": "Ausencias",
+    "dado": "Dos periodos consecutivos sin compra y prerregistro separado",
+    "cuando": "Cerrar dos veces el segundo periodo",
+    "entonces": "Una baja del ciclo; prerregistro excluido; ningún contador duplicado",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T28",
+    "area": "Compresión",
+    "dado": "Comprador con inactivo inmediato y tres activos superiores",
+    "cuando": "Simular regla D03 aprobada",
+    "entonces": "Beneficiarios y montos coinciden con caso aprobado; profundidad supera tres si hace falta",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T29",
+    "area": "Compresión",
+    "dado": "Solo uno o dos ascendentes elegibles",
+    "cuando": "Simular cierre",
+    "entonces": "Destino de niveles faltantes coincide con D03 y no se inventa beneficiario",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T30",
+    "area": "Reingreso",
+    "dado": "Ciclo dado de baja con descendientes históricos",
+    "cuando": "Abrir reingreso aprobado",
+    "entonces": "Nuevo ciclo y organización; anterior historial intacto; enlaces según D04",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T31",
+    "area": "Patrocinio",
+    "dado": "Dos reasignaciones que juntas crearían ciclo",
+    "cuando": "Ejecutar concurrentemente",
+    "entonces": "Grafo válido tras commit; una operación rechazada o reintentada",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T32",
+    "area": "Comisiones",
+    "dado": "Unidad pagada de 250000 centavos y tres elegibles",
+    "cuando": "Calcular y reejecutar",
+    "entonces": "90000, 22500 y 12500; suma125000; no duplicación",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T33",
+    "area": "Ajustes",
+    "dado": "Descuentos, varias unidades y redondeo",
+    "cuando": "Calcular casos ratificados D06",
+    "entonces": "Enteros exactos, base y versión documentadas, total conciliable",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T34",
+    "area": "Liquidación",
+    "dado": "Miembro elegible con CLABE no validada",
+    "cuando": "Preparar lote",
+    "entonces": "Retener desembolso según D07 sin convertirlo en ausencia de compra",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T35",
+    "area": "Liquidación",
+    "dado": "Lote aprobado y timeout de proveedor",
+    "cuando": "Reintentar con misma clave",
+    "entonces": "No doble transferencia; reconciliación de resultado antes de repetir",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T36",
+    "area": "Administración",
+    "dado": "Edición de banco y rol de pago",
+    "cuando": "Cambiar datos y autorizar lote",
+    "entonces": "MFA, auditoría y separación de quien prepara y aprueba según política",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T37",
+    "area": "Restauración",
+    "dado": "Respaldos de DB, videos y recursos",
+    "cuando": "Restaurar en entorno aislado",
+    "entonces": "Conteos y archivos conciliados; RPO/RTO medidos; claves rotadas si corresponde",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T38",
+    "area": "Observabilidad",
+    "dado": "Falla de webhook, cola y consulta",
+    "cuando": "Generar errores controlados",
+    "entonces": "Alerta con correlación útil sin tokens, documentos o datos bancarios",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T39",
+    "area": "Carga",
+    "dado": "500 miembros, 50 sesiones propuestas y cierres",
+    "cuando": "Ejecutar carga con árboles anchos y profundos",
+    "entonces": "Medir p95, errores, cierre y cuotas; cumplir objetivos ratificados",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T40",
+    "area": "Corte",
+    "dado": "Origen congelado y destino preparado",
+    "cuando": "Ensayar corte y reversión con una operación nueva",
+    "entonces": "Un escritor; operación nueva preservada tras conciliación, sin pérdida",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T41",
+    "area": "Entrega",
+    "dado": "Piloto completo con equipo de FH",
+    "cuando": "Cuenta a formación a pedido a comisión a liquidación",
+    "entonces": "Carlos acepta evidencia, documentación, accesos y soporte",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  },
+  {
+    "id": "T42",
+    "area": "Alcance",
+    "dado": "Función de expansión o gamificación",
+    "cuando": "Revisar antes de incorporarla",
+    "entonces": "No activa reglas comerciales o países sin aprobación específica",
+    "estado": "Pendiente de ejecutar en la nueva plataforma"
+  }
+]

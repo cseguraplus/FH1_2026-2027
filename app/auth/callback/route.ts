@@ -1,4 +1,5 @@
 import { createEmailAuth, safeAuthNext, verifiedEmailUser } from "@/lib/email-auth";
+import { logError, requestId } from "@/lib/log";
 export const dynamic = "force-dynamic";
 export async function GET(request:Request) {
   const url=new URL(request.url);
@@ -13,5 +14,5 @@ export async function GET(request:Request) {
     const {error}=await auth.client.auth.exchangeCodeForSession(code);
     if (error || !await verifiedEmailUser(auth)) return apply(fail());
     return apply(Response.redirect(new URL(safeAuthNext(url.searchParams.get("next")),url),303));
-  } catch { return apply(fail()); }
+  } catch (error) { logError("auth.callback",error,requestId(request)); return apply(fail()); }
 }

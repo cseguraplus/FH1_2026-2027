@@ -3,6 +3,7 @@ import { correctAnswers, database, authorize, json } from "@/lib/server";
 import { readBoundedJson, RequestBodyError } from "@/lib/request-body";
 import { consumeLimit } from "@/lib/rate-limit";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
+import { logError, requestId } from "@/lib/log";
 export const dynamic = "force-dynamic";
 const inputSchema = z.discriminatedUnion("action",[
   z.object({action:z.literal("register"),name:z.string().trim().min(2).max(70),city:z.string().trim().max(70).default(""),sponsorCode:z.string().trim().max(24).default(""),consent:z.literal(true),wantsFounder:z.boolean()}).strict(),
@@ -20,7 +21,7 @@ export async function POST(request:Request) {
     if (!user) return respond({error:"Inicia sesión para continuar."},401);
     const limit=await consumeLimit(database(),user.userId,"write");
     if (!limit.allowed) return respond({error:"Has realizado muchas solicitudes. Espera un momento e inténtalo de nuevo."},429,{"Retry-After":String(limit.retryAfter)});
-  } catch { return respond({error:"No pudimos guardar el cambio. Intenta nuevamente."},503); }
+  } catch (error) { const id=requestId(request); logError("actions",error,id); return respond({error:"No pudimos guardar el cambio. Intenta nuevamente."},503,{"X-Request-Id":id}); }
   let raw:unknown;
   try { raw=await readBoundedJson(request); }
   catch (error) {
@@ -71,5 +72,5 @@ export async function POST(request:Request) {
     ]);
     if (!results[0].meta.changes) return respond({error:"El Círculo Fundador ya tiene 10 integrantes aprobados."},409);
     return respond({ok:true});
-  } catch { return respond({error:"No pudimos guardar el cambio. Intenta nuevamente."},503); }
+  } catch (error) { const id=requestId(request); logError("actions",error,id); return respond({error:"No pudimos guardar el cambio. Intenta nuevamente."},503,{"X-Request-Id":id}); }
 }

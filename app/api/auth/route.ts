@@ -5,6 +5,7 @@ import { linkExistingProfile } from "@/lib/account-link";
 import { database, json } from "@/lib/server";
 import { consumeLimit } from "@/lib/rate-limit";
 import { readBoundedJson, RequestBodyError } from "@/lib/request-body";
+import { logError, requestId } from "@/lib/log";
 export const dynamic = "force-dynamic";
 
 const email = z.string().trim().email().max(254).transform(value=>value.toLowerCase());
@@ -26,7 +27,7 @@ export async function GET(request:Request) {
     const legacy=await getChatGPTUser();
     const profile=legacy ? await database().prepare("SELECT name FROM profiles WHERE user_id = ?").bind(legacy.userId).first<{name:string}>() : null;
     return auth.apply(json({configured:true,email:user?.email ?? null,canLink:!!(user&&profile),legacyName:user&&profile ? profile.name : null}));
-  } catch { return json({error:"No pudimos comprobar tu acceso. Intenta nuevamente."},503); }
+  } catch (error) { const id=requestId(request); logError("auth.get",error,id); return json({error:"No pudimos comprobar tu acceso. Intenta nuevamente."},503,{"X-Request-Id":id}); }
 }
 
 export async function POST(request:Request) {
@@ -96,6 +97,7 @@ export async function POST(request:Request) {
     return respond(result,result.status);
   } catch (error) {
     if (error instanceof RequestBodyError) return respond({error:error.message},error.status);
-    return respond({error:"No pudimos completar la solicitud. Intenta nuevamente."},503);
+    const id=requestId(request); logError("auth.post",error,id);
+    return respond({error:"No pudimos completar la solicitud. Intenta nuevamente."},503,{"X-Request-Id":id});
   }
 }

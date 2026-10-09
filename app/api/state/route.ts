@@ -1,6 +1,7 @@
 import { database, authorize, json, type Profile } from "@/lib/server";
 import { consumeLimit } from "@/lib/rate-limit";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
+import { logError, requestId } from "@/lib/log";
 export const dynamic = "force-dynamic";
 export async function GET(request?:Request) {
   let respond = json;
@@ -39,5 +40,5 @@ export async function GET(request?:Request) {
       referral_code:profile.referral_code,wants_founder:profile.wants_founder,
       founder:profile.founder,created_at:profile.created_at,
     },isAdmin:user.isAdmin,authMethod:user.authMethod,totals,progress:results[0].results,network:results[1].results,sponsor:results[2].results[0] ?? null,applicants});
-  } catch { return respond({error:"No pudimos cargar tu espacio. Intenta nuevamente."},503); }
+  } catch (error) { const id=requestId(request); logError("state",error,id); return respond({error:"No pudimos cargar tu espacio. Intenta nuevamente."},503,{"X-Request-Id":id}); }
 }

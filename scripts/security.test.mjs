@@ -56,7 +56,7 @@ function setup(t,{emailAuth=false}={}) {
     const module={exports:{}};cache.set(file,module);
     const code=ts.transpileModule(readFileSync(resolve(root,file),"utf8"),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,esModuleInterop:true}}).outputText;
     const dependency=(id)=>{
-      if(id==="cloudflare:workers")return {env:{DB:adapter,...(emailAuth?{FH_AUTH_MODE:"email",SUPABASE_URL:"https://auth.example.test",SUPABASE_PUBLISHABLE_KEY:"test-publishable-key"}:{})}};
+      if(id==="cloudflare:workers")return {env:{DB:adapter,FH_OWNER_EMAIL:"servivomx@gmail.com",...(emailAuth?{FH_AUTH_MODE:"email",SUPABASE_URL:"https://auth.example.test",SUPABASE_PUBLISHABLE_KEY:"test-publishable-key"}:{})}};
       if(id==="@/app/chatgpt-auth")return {getChatGPTUser:async()=>user};
       if(id==="@supabase/ssr")return {...require(id),createServerClient:(_url,_key,options)=>{
         const cookie=(value)=>options.cookies.setAll([{name:"fh-auth",value,options:{httpOnly:true,secure:true,sameSite:"lax",path:"/",...(value?{}:{maxAge:0})}}]);

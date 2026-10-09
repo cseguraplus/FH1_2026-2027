@@ -16,7 +16,7 @@ export async function authorize(request?:Request) {
     return {user:{userId,email:emailUser.email!,fullName:null,isAdmin:owner?.user_id === userId,authMethod:"email" as const},apply};
   }
   const user = await getChatGPTUser();
-  return {user:user ? {...user,isAdmin:await isSiteAdmin(database(),user),authMethod:"legacy" as const} : null,apply};
+  return {user:user ? {...user,isAdmin:await isSiteAdmin(database(),user,env.FH_OWNER_EMAIL),authMethod:"legacy" as const} : null,apply};
 }
 export function database() {
   if (!env.DB) throw new Error("La base de datos no está disponible.");

@@ -65,3 +65,7 @@ Trabajar en ramas y revisar cambios antes de integrarlos. Empezar por reproducir
 Subir código a este repositorio no despliega automáticamente el sitio ni transfiere la propiedad de Sites, Supabase o Namecheap. Los identificadores de `.openai/hosting.json` proceden del sitio de origen; revisar el destino y sus permisos antes de cualquier publicación.
 
 Las 40 pruebas existentes se aprobaron en la revisión del 7 de octubre de 2026. Cubren handlers, SQLite aislado y fronteras simuladas de identidad/transporte; no certifican SMTP, callbacks reales, pasarela o capacidad de 500 usuarios.
+
+## Variables de entorno
+
+- `FH_OWNER_EMAIL`: correo que puede reclamar el rol de dueño la primera vez. Sin esta variable nadie puede crearlo (cierre seguro). Configúrala como variable del Worker, no en el código.

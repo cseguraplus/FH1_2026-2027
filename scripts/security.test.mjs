@@ -53,7 +53,7 @@ function setup(t,{emailAuth=false}={}) {
   const cache=new Map();
   function load(file) {
     if(cache.has(file))return cache.get(file).exports;
-    const module={exports:{}};cache.set(file,module);
+    const mod={exports:{}};cache.set(file,mod);
     const code=ts.transpileModule(readFileSync(resolve(root,file),"utf8"),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,esModuleInterop:true}}).outputText;
     const dependency=(id)=>{
       if(id==="cloudflare:workers")return {env:{DB:adapter,FH_OWNER_EMAIL:"servivomx@gmail.com",...(emailAuth?{FH_AUTH_MODE:"email",SUPABASE_URL:"https://auth.example.test",SUPABASE_PUBLISHABLE_KEY:"test-publishable-key"}:{})}};
@@ -74,8 +74,8 @@ function setup(t,{emailAuth=false}={}) {
       if(id.startsWith("@/"))return load(id.slice(2)+".ts");
       return require(id);
     };
-    vm.runInThisContext(`(function(require,module,exports){${code}\n})`,{filename:file})(dependency,module,module.exports);
-    return module.exports;
+    vm.runInThisContext(`(function(require,module,exports){${code}\n})`,{filename:file})(dependency,mod,mod.exports);
+    return mod.exports;
   }
   return {
     sqlite,

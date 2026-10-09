@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BookOpen, CalendarDays, Check, CheckCircle2, ChevronRight, CircleHelp, Copy, FlaskConical, GraduationCap, LayoutDashboard, Leaf, Link2, Loader2, LogOut, Menu, Network, Play, Search, ShieldCheck, Sparkles, TrendingUp, Trophy, Users, Wallet, X } from "lucide-react";
+import { BookOpen, CalendarDays, Check, CheckCircle2, ChevronRight, CircleHelp, Copy, FlaskConical, GraduationCap, LayoutDashboard, Leaf, Link2, Loader2, LogOut, Menu, Network, Search, ShieldCheck, Sparkles, TrendingUp, Trophy, Users, Wallet, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";

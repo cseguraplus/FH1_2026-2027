@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CheckCircle2, Eye, EyeOff, Loader2, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -38,12 +39,12 @@ export default function AccessForm({configured}:{configured:boolean}) {
   const legacyReturn="/signin-with-chatgpt?return_to="+encodeURIComponent("/acceso?mode=link");
   return <main className="access-page">
     <section className="access-story">
-      <a href="/" className="access-logo"><img src="/brand/fh-logo-pine.svg" width={850} height={198} alt="F Health"/></a>
+      <Link href="/" className="access-logo"><img src="/brand/fh-logo-pine.svg" width={850} height={198} alt="F Health"/></Link>
       <div><p className="eyebrow">F HEALTH · MÉXICO</p><h1>Aprende.<br/>Comparte.<br/><strong>Crece.</strong></h1><p>Una cuenta para tu formación, tus invitaciones y la comunidad que estás construyendo.</p></div>
       <ul><li><CheckCircle2 size={21}/> Registro gratuito</li><li><CheckCircle2 size={21}/> Tu progreso, en un solo lugar</li><li><CheckCircle2 size={21}/> Tu enlace y tu organización</li></ul>
     </section>
     <section className="access-panel" aria-labelledby="access-title">
-      <a className="text-link access-back" href="/">Volver a F Health</a>
+      <Link className="text-link access-back" href="/">Volver a F Health</Link>
       <div className="access-card">
         <span className="access-mark"><LockKeyhole size={25}/></span>
         <p className="eyebrow">TU CUENTA F HEALTH</p><h2 id="access-title">{title}</h2>

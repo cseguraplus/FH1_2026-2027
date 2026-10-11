@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "codex-subagent": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--with", "mcp<2", "codex-as-mcp@latest"],
+      "env": {}
+    }
+  }
+}
